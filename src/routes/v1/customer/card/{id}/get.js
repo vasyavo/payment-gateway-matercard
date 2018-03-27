@@ -16,7 +16,7 @@ const handler = async (req, res, next) => {
         return next(err);
     }
 
-    res.status(200).send({items: cards});
+    res.status(200).send({ items: cards });
 };
 
 module.exports = handler;

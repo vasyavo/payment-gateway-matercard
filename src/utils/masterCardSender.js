@@ -16,7 +16,7 @@ module.exports = {
                     'content-type': 'application/json',
                     Authorization: auth,
                 },
-                /*auth: {
+                /* auth: {
                     user: `merchant.${merchantId}`,
                     pass: apiPassword,
                     sendImmediately: false,
@@ -84,4 +84,4 @@ module.exports = {
             });
         });
     },
-}
+};

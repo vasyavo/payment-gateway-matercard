@@ -12,34 +12,34 @@ const ospreyConfig = {
 };
 
 
-    const ramlApi = ramlParser.loadRAMLSync(config.raml, {rejectOnErrors: true});
-    const raml = ramlApi.expand(true).toJSON({
-        serializeMetadata: false,
-    });
-    const middleware = [];
-    const handler = osprey.server(
+const ramlApi = ramlParser.loadRAMLSync(config.raml, { rejectOnErrors: true });
+const raml = ramlApi.expand(true).toJSON({
+    serializeMetadata: false,
+});
+const middleware = [];
+const handler = osprey.server(
         Object.assign({}, raml, {
             RAMLVersion: ramlApi.RAMLVersion(),
         }, ospreyConfig.server)
     );
-    const error = osprey.errorHandler(ospreyConfig.errorHandler);
+const error = osprey.errorHandler(ospreyConfig.errorHandler);
 
-    if (ospreyConfig.security) {
-        middleware.push(osprey.security(raml, ospreyConfig.security));
-    }
+if (ospreyConfig.security) {
+    middleware.push(osprey.security(raml, ospreyConfig.security));
+}
 
-    middleware.push(handler);
+middleware.push(handler);
 
-    if (!ospreyConfig.disableErrorInterception) {
-        middleware.push(error);
-    }
+if (!ospreyConfig.disableErrorInterception) {
+    middleware.push(error);
+}
 
-    const result = compose(middleware);
+const result = compose(middleware);
 
-    result.ramlUriParameters = handler.ramlUriParameters;
+result.ramlUriParameters = handler.ramlUriParameters;
 
-     module.exports = {
-        middleware: result,
-        mockService: mockService(raml),
-    };
+module.exports = {
+    middleware: result,
+    mockService: mockService(raml),
+};
 
