@@ -1,0 +1,56 @@
+#%RAML 1.0
+title: payment-gateway-mastercard
+mediaType:  application/json
+version: v1
+
+resourceTypes:
+  collection: !include resourceTypes/collection.raml
+
+/v1/customer:
+  /card/{id}:
+    type:
+      collection:
+        exampleCollection: !include v1/customer/card/{id}/_get/responses/200/example.json
+        description: 'Get list of cards by customerId'
+    delete:
+      description: Delete card.
+      body:
+        application/json:
+          schema: !include v1/customer/card/{id}/_delete/body/schema.json
+          example: !include v1/customer/card/{id}/_delete/body/example.json
+      responses:
+        200:
+          body:
+            example: !include v1/customer/card/{id}/_delete/responses/200/example.json
+    post:
+      description: Create card.
+      body:
+        application/json:
+          schema: !include v1/customer/card/{id}/_post/body/schema.json
+          example: !include v1/customer/card/{id}/_post/body/example.json
+      responses:
+        200:
+          body:
+            example: !include v1/customer/card/{id}/_post/responses/201/example.json
+  /refund:
+    post:
+      description: Refund some amount.
+      body:
+        application/json:
+          schema: !include v1/customer/refund/_post/body/schema.json
+          example: !include v1/customer/refund/_post/body/example.json
+      responses:
+        200:
+          body:
+            example: !include v1/customer/refund/_post/responses/200/example.json
+  /pay:
+    post:
+      description: Make a Pay.
+      body:
+        application/json:
+          schema: !include v1/customer/pay/_post/body/schema.json
+          example: !include v1/customer/pay/_post/body/example.json
+      responses:
+        200:
+          body:
+            example: !include v1/customer/pay/_post/responses/200/example.json

@@ -1,0 +1,32 @@
+{
+  "title": "Pay",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "properties": {
+    "customer": {
+      "type": "string"
+    },
+    "cardId": {
+      "type": "string"
+    },
+    "order": {
+      "properties": {
+        "amount": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount",
+        "currency"
+      ]
+    }
+  },
+  "required": [
+    "order",
+    "customer",
+    "cardId"
+  ]
+}

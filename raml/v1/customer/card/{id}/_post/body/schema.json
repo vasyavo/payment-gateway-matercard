@@ -1,0 +1,33 @@
+{
+  "title": "CreateCard",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "properties": {
+    "expiry": {
+      "type": "object",
+      "properties": {
+        "month": {
+          "type": "string"
+        },
+        "year": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "month",
+        "year"
+      ]
+    },
+    "number": {
+      "type": "string"
+    },
+    "securityCode": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "expiry",
+    "number",
+    "securityCode"
+  ]
+}

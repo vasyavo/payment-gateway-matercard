@@ -1,0 +1,19 @@
+#%RAML 1.0 ResourceType
+
+description: Collection of available <<resourcePathName>> in Payment-gateway.
+get:
+  description: <<description>>
+  responses:
+    200:
+      body:
+        application/json:
+          example: |
+            <<exampleCollection>>
+delete:
+  description: Delete <<resourcePathName>> by masterCardId.
+  responses:
+    200:
+      body:
+        html/text:
+          example: |
+            <<exampleDelete>>

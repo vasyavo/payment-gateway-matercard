@@ -1,0 +1,13 @@
+{
+  "title": "DeleteCard",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "properties": {
+    "customer": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "customer"
+  ]
+}
