@@ -3,7 +3,7 @@ const {
     merchantId,
     apiPassword,
 } = require('../config');
-const auth = `Basic ${new Buffer(`merchant.${merchantId}:${apiPassword}`).toString('base64')}`;
+const errorGenerator = require('./errorGenerator');
 
 module.exports = {
     post: (apiParams, url) => {
@@ -12,19 +12,19 @@ module.exports = {
                 method: 'post',
                 json: true,
                 body: apiParams,
-                headers: {
-                    'content-type': 'application/json',
-                    Authorization: auth,
-                },
-                /* auth: {
+                auth: {
                     user: `merchant.${merchantId}`,
                     pass: apiPassword,
                     sendImmediately: false,
-                },*/
+                },
                 url,
             }, (err, httpResponse, body) => {
-                if (err) {
-                    return reject(err);
+                const {
+                    result,
+                } = body;
+
+                if (result === 'ERROR') {
+                    return reject(errorGenerator(body.error.explanation));
                 }
 
                 resolve(body);
@@ -37,12 +37,18 @@ module.exports = {
                 method: 'put',
                 json: apiParams,
                 url,
-                headers: {
-                    Authorization: auth,
+                auth: {
+                    user: `merchant.${merchantId}`,
+                    pass: apiPassword,
+                    sendImmediately: false,
                 },
             }, (err, httpResponse, body) => {
-                if (err) {
-                    return reject(err);
+                const {
+                    result,
+                } = body;
+
+                if (result === 'ERROR') {
+                    return reject(errorGenerator(body.error.explanation));
                 }
 
                 resolve(body);
@@ -54,12 +60,18 @@ module.exports = {
             request({
                 method: 'get',
                 url,
-                headers: {
-                    Authorization: auth,
+                auth: {
+                    user: `merchant.${merchantId}`,
+                    pass: apiPassword,
+                    sendImmediately: false,
                 },
             }, (err, httpResponse, body) => {
-                if (err) {
-                    return reject(err);
+                const {
+                    result,
+                } = body;
+
+                if (result === 'ERROR') {
+                    return reject(errorGenerator(body.error.explanation));
                 }
 
                 resolve(body);
@@ -71,13 +83,19 @@ module.exports = {
         return new Promise((resolve, reject) => {
             request({
                 method: 'delete',
-                headers: {
-                    Authorization: auth,
+                auth: {
+                    user: `merchant.${merchantId}`,
+                    pass: apiPassword,
+                    sendImmediately: false,
                 },
                 url,
             }, (err, httpResponse, body) => {
-                if (err) {
-                    return reject(err);
+                const {
+                    result,
+                } = body;
+
+                if (result === 'ERROR') {
+                    return reject(errorGenerator(body.error.explanation));
                 }
 
                 resolve(body);

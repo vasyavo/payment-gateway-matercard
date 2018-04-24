@@ -23,11 +23,15 @@
     },
     "securityCode": {
       "type": "string"
+    },
+    "holderName": {
+      "type": "string"
     }
   },
   "required": [
     "expiry",
     "number",
-    "securityCode"
+    "securityCode",
+    "holderName"
   ]
 }

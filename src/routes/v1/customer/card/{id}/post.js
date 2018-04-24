@@ -1,4 +1,5 @@
-const CardCollection = require('../../../../../collections/card');
+const db = require('../../../../../utils/connection').db;
+const collection = db.collection('card');
 const {
     masterCardSender,
     logger,
@@ -6,10 +7,14 @@ const {
 const {
     merchantId,
 } = require('../../../../../config');
+const ObjectID = require('bson-objectid');
 
 const handler = async (req, res, next) => {
-    const customer = req.params._id;
-    const card = req.body;
+    const customer = req.params.customer;
+    const {
+        holderName,
+        ...card,
+    } = req.body;
     let result;
 
     try {
@@ -20,11 +25,8 @@ const handler = async (req, res, next) => {
                     card,
                 },
             },
-        }, `https://ap-gateway.mastercard.com/api/rest/version/46/merchant/${merchantId}/token`);
-
-        console.log(result);
+        }, `https://eu-gateway.mastercard.com/api/rest/version/46/merchant/${merchantId}/token`);
     } catch (err) {
-        logger.log(err);
         return next(err);
     }
 
@@ -34,16 +36,19 @@ const handler = async (req, res, next) => {
             provided: {
                 card: {
                     number,
+                    expiry,
                 },
             },
         },
     } = result;
 
     try {
-        await CardCollection.insertOne({
+        await collection.insertOne({
+            expiry,
             masterCardId: token,
             cardNumber: number,
-            customer,
+            customer: ObjectID(customer),
+            holderName,
             default: false,
         });
     } catch (err) {

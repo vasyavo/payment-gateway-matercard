@@ -23,6 +23,6 @@
   },
   "required": [
     "transaction",
-    "transactionId"
+    "orderId"
   ]
 }

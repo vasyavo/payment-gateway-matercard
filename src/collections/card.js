@@ -29,6 +29,22 @@ module.exports = (async () => {
                     $exists: true,
                 },
             }, {
+                holderName: {
+                    $type: 'string',
+                },
+            }, {
+                holderName: {
+                    $exists: true,
+                },
+            }, {
+                expiry: {
+                    $type: 'string',
+                },
+            }, {
+                expiry: {
+                    $exists: true,
+                },
+            }, {
                 customer: {
                     $type: 'objectId',
                 } }],
