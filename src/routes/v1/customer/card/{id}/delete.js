@@ -1,4 +1,6 @@
-const CardModel = require('../../../../../collections/card');
+const db = require('../../../../../utils/connection').db;
+const collectionName = require('../../../../../constants/contentType').CARD;
+const collection = db.collection(collectionName);
 const {
     masterCardSender,
     logger,
@@ -11,7 +13,7 @@ const handler = async (req, res, next) => {
     const _id = req.params._id;
     const customer = req.body.customer;
     try {
-        const card = await CardModel.findOne({
+        const card = await collection.findOne({
             _id,
             customer,
         });
@@ -23,7 +25,7 @@ const handler = async (req, res, next) => {
     }
 
     try {
-        await CardModel.removeOne({
+        await collection.removeOne({
             _id,
             customer,
         });

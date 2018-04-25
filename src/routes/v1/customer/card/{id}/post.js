@@ -1,5 +1,6 @@
 const db = require('../../../../../utils/connection').db;
-const collection = db.collection('card');
+const collectionName = require('../../../../../constants/contentType').CARD;
+const collection = db.collection(collectionName);
 const {
     masterCardSender,
     logger,
@@ -13,7 +14,7 @@ const handler = async (req, res, next) => {
     const customer = req.params.customer;
     const {
         holderName,
-        ...card,
+        ...card
     } = req.body;
     let result;
 
@@ -56,7 +57,8 @@ const handler = async (req, res, next) => {
         return next(err);
     }
 
-    res.status(200).send('Card was successfully created');
+    // eslint-disable-next-line global-require
+    res.status(200).send(require('../../../../../../raml/v1/customer/card/{id}/_post/responses/201/example.json'));
 };
 
 module.exports = handler;

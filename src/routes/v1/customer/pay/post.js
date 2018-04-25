@@ -1,4 +1,6 @@
-const CardCollection = require('../../../../collections/card');
+const db = require('../../../../utils/connection').db;
+const collectionName = require('../../../../constants/contentType').CARD;
+const collection = db.collection(collectionName);
 const {
     masterCardSender,
     logger,
@@ -18,7 +20,7 @@ const handler = async (req, res, next) => {
     let result;
 
     try {
-        card = await CardCollection.findOne({
+        card = await collection.findOne({
             _id: cardId,
             customer,
         });

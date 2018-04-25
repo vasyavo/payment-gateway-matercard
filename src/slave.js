@@ -36,7 +36,7 @@ const app = express();
 
     app.get('/v1/api', require('./utils/sendRamlDoc'));
 
-    // app.use(middleware);
+    app.use(middleware);
     app.use('/v1/customer/', require('./routes/v1/customer/'));
 
     app.use(mockService);
