@@ -19,6 +19,9 @@ module.exports = {
                 },
                 url,
             }, (err, httpResponse, body) => {
+                if (typeof body === 'string') {
+                    body = JSON.parse(body);
+                }
                 const {
                     result,
                 } = body;
@@ -43,6 +46,9 @@ module.exports = {
                     sendImmediately: false,
                 },
             }, (err, httpResponse, body) => {
+                if (typeof body === 'string') {
+                    body = JSON.parse(body);
+                }
                 const {
                     result,
                 } = body;
@@ -66,6 +72,9 @@ module.exports = {
                     sendImmediately: false,
                 },
             }, (err, httpResponse, body) => {
+                if (typeof body === 'string') {
+                    body = JSON.parse(body);
+                }
                 const {
                     result,
                 } = body;
@@ -90,6 +99,9 @@ module.exports = {
                 },
                 url,
             }, (err, httpResponse, body) => {
+                if (typeof body === 'string') {
+                    body = JSON.parse(body);
+                }
                 const {
                     result,
                 } = body;

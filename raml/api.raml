@@ -12,16 +12,7 @@ resourceTypes:
       collection:
         exampleCollection: !include v1/customer/card/{id}/_get/responses/200/example.json
         description: 'Get list of cards by customerId'
-    delete:
-      description: Delete card.
-      body:
-        application/json:
-          schema: !include v1/customer/card/{id}/_delete/body/schema.json
-          example: !include v1/customer/card/{id}/_delete/body/example.json
-      responses:
-        200:
-          body:
-            example: !include v1/customer/card/{id}/_delete/responses/200/example.json
+        exampleDelete: !include v1/customer/card/{id}/_delete/responses/200/example.json
     post:
       description: Create card.
       body:

@@ -26,7 +26,7 @@ const handler = async (req, res, next) => {
                     card,
                 },
             },
-        }, `https://eu-gateway.mastercard.com/api/rest/version/46/merchant/${merchantId}/token`);
+        }, `https://eu-gateway.mastercard.com/api/rest/version/47/merchant/${merchantId}/token`);
     } catch (err) {
         return next(err);
     }

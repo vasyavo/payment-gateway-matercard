@@ -17,7 +17,7 @@ const handler = async (req, res, next) => {
     try {
         result = await masterCardSender.put({
             transaction,
-        }, `https://ap-gateway.mastercard.com/api/rest/version/46/merchant/${merchantId}/order/${orderId}/transaction/${ObjectID()}`);
+        }, `https://eu-gateway.mastercard.com/api/rest/version/46/merchant/${merchantId}/order/${orderId}/transaction/${ObjectID()}`);
 
         console.log(result);
     } catch (err) {

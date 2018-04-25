@@ -13,7 +13,6 @@ const ObjectID = require('bson-objectid');
 const handler = async (req, res, next) => {
     const {
         cardId,
-        customer,
         order,
     } = req.body;
     let card;
@@ -21,8 +20,7 @@ const handler = async (req, res, next) => {
 
     try {
         card = await collection.findOne({
-            _id: cardId,
-            customer,
+            _id: ObjectID(cardId),
         });
 
         if (!card) {
@@ -39,7 +37,7 @@ const handler = async (req, res, next) => {
             sourceOfFunds: {
                 token: card.masterCardId,
             },
-        }, `https://ap-gateway.mastercard.com/api/rest/version/46/merchant/${merchantId}/order/${ObjectID()}/transaction/${ObjectID()}`);
+        }, `https://eu-gateway.mastercard.com/api/rest/version/47/merchant/${merchantId}/order/${ObjectID()}/transaction/${ObjectID()}`);
 
         console.log(result);
     } catch (err) {
