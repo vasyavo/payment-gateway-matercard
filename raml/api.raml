@@ -32,6 +32,12 @@ resourceTypes:
         200:
           body:
             example: !include v1/customer/card/{id}/_post/responses/201/example.json
+    patch:
+      description: Set card as default by card id.
+      responses:
+        200:
+          body:
+            example: !include v1/customer/card/{id}/_patch/responses/200/example.json
   /refund:
     post:
       description: Refund some amount.
