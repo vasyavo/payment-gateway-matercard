@@ -16,6 +16,7 @@ const handler = async (req, res, next) => {
 
     try {
         result = await masterCardSender.put({
+            apiOperation: 'REFUND',
             transaction,
         }, `https://eu-gateway.mastercard.com/api/rest/version/46/merchant/${merchantId}/order/${orderId}/transaction/${ObjectID()}`);
 

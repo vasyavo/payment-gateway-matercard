@@ -33,7 +33,11 @@ const handler = async (req, res, next) => {
 
     try {
         result = await masterCardSender.put({
+            apiOperation: 'PAY',
             order,
+            risk: {
+                bypassMerchantRiskRules: 'ALL',
+            },
             sourceOfFunds: {
                 token: card.masterCardId,
             },
@@ -47,7 +51,7 @@ const handler = async (req, res, next) => {
 
     res.status(200).send({
         status: 'Successfully payed',
-        transactionId: result.id,
+        orderId: result.order.id,
     });
 };
 
