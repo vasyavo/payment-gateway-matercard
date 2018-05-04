@@ -1,6 +1,4 @@
-const db = require('../../../../../utils/connection').db;
-const collectionName = require('../../../../../constants/contentType').CARD;
-const collection = db.collection(collectionName);
+const collectionPromise = require('../../../../../collections/card');
 const ObjectID = require('bson-objectid');
 
 const {
@@ -8,6 +6,7 @@ const {
 } = require('../../../../../utils');
 
 const handler = async (req, res, next) => {
+    const collection = await collectionPromise;
     const customer = ObjectID(req.params.customer);
     let cards;
 

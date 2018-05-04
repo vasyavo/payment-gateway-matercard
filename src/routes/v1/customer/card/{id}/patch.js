@@ -1,6 +1,4 @@
-const db = require('../../../../../utils/connection').db;
-const collectionName = require('../../../../../constants/contentType').CARD;
-const collection = db.collection(collectionName);
+const collectionPromise = require('../../../../../collections/card');
 const ObjectID = require('bson-objectid');
 const {
     errorGenerator,
@@ -8,6 +6,7 @@ const {
 } = require('../../../../../utils');
 
 module.exports = async (req, res, next) => {
+    const collection = await collectionPromise;
     const _id = ObjectID(req.params._id);
 
     try {

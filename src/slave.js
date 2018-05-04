@@ -4,7 +4,7 @@ const compress = require('compression');
 const addRequestId = require('express-request-id')();
 const config = require('./config');
 const logger = require('./utils/logger');
-const mongo = require('./utils/connection');
+const authMiddleware = require('./utils/authMiddleware');
 
 const {
     middleware,
@@ -22,8 +22,6 @@ process.on('uncaughtException', (error) => {
 const app = express();
 
 (async () => {
-    await mongo();
-
     app.use(addRequestId);
     app.use(compress());
     app.disable('x-powered-by');
@@ -37,7 +35,7 @@ const app = express();
     app.get('/v1/api', require('./utils/sendRamlDoc'));
 
     app.use(middleware);
-    app.use('/v1/customer/', require('./routes/v1/customer/'));
+    app.use('/v1/customer/', authMiddleware, require('./routes/v1/customer/'));
 
     app.use(mockService);
 

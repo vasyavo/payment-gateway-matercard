@@ -1,7 +1,8 @@
 const collectionName = require('../constants/contentType').CARD;
-const db = require('../utils/connection').db;
+const connection = require('../utils/connection');
 
 module.exports = (async () => {
+    const db = await connection;
     const collection = await db.createCollection(collectionName, {
         validator: {
             $and: [{

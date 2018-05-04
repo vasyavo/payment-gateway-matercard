@@ -1,3 +1,11 @@
 {
-  "items": []
+  "items": [
+    {
+      "_id": "5ae07953cdfc050c86afd55a",
+      "expiry": "1030",
+      "cardNumber": "550690xxxxxx0305",
+      "holderName": "Holder Name...",
+      "default": false
+    }
+  ]
 }

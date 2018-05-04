@@ -1,6 +1,4 @@
-const db = require('../../../../../utils/connection').db;
-const collectionName = require('../../../../../constants/contentType').CARD;
-const collection = db.collection(collectionName);
+const collectionPromise = require('../../../../../collections/card');
 const ObjectID = require('bson-objectid');
 const {
     masterCardSender,
@@ -12,6 +10,7 @@ const {
 } = require('../../../../../config');
 
 const handler = async (req, res, next) => {
+    const collection = await collectionPromise;
     const _id = ObjectID(req.params._id);
     try {
         const card = await collection.findOne({

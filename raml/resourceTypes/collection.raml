@@ -2,6 +2,17 @@
 
 description: Collection of available <<resourcePathName>> in Payment-gateway.
 get:
+  headers:
+    CLIENT-ID:
+      description: |
+        This is client id header for access
+      required: true
+      example: 5ae03353cdfc050c86afd331
+    CLIENT-SECRET:
+      description: |
+        This is client secret header for access
+      required: true
+      example: 5ae03353tdfc050c86ssd331
   description: <<description>>
   responses:
     200:
@@ -10,6 +21,17 @@ get:
           example: |
             <<exampleCollection>>
 delete:
+  headers:
+    CLIENT-ID:
+      description: |
+        This is client id header for access
+      required: true
+      example: 5ae03353cdfc050c86afd331
+    CLIENT-SECRET:
+      description: |
+        This is client secret header for access
+      required: true
+      example: 5ae03353tdfc050c86ssd331
   description: Delete <<resourcePathName>> by ID.
   responses:
     200:

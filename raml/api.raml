@@ -5,6 +5,19 @@ version: v1
 
 resourceTypes:
   collection: !include resourceTypes/collection.raml
+traits:
+  authHeaders:
+    headers:
+      CLIENT-ID:
+        description: |
+          This is client id header for access
+        required: true
+        example: 5ae03353cdfc050c86afd331
+      CLIENT-SECRET:
+        description: |
+          This is client secret header for access
+        required: true
+        example: 5ae03353tdfc050c86ssd331
 
 /v1/customer:
   /card/{id}:
@@ -15,6 +28,7 @@ resourceTypes:
         exampleDelete: !include v1/customer/card/{id}/_delete/responses/200/example.json
     post:
       description: Create card.
+      is: [authHeaders]
       body:
         application/json:
           schema: !include v1/customer/card/{id}/_post/body/schema.json
@@ -25,6 +39,7 @@ resourceTypes:
             example: !include v1/customer/card/{id}/_post/responses/201/example.json
     patch:
       description: Set card as default by card id.
+      is: [authHeaders]
       responses:
         200:
           body:
@@ -32,6 +47,7 @@ resourceTypes:
   /refund:
     post:
       description: Refund some amount.
+      is: [authHeaders]
       body:
         application/json:
           schema: !include v1/customer/refund/_post/body/schema.json
@@ -43,6 +59,7 @@ resourceTypes:
   /pay:
     post:
       description: Make a Pay.
+      is: [authHeaders]
       body:
         application/json:
           schema: !include v1/customer/pay/_post/body/schema.json

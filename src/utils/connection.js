@@ -6,7 +6,7 @@ const logger = require('./logger');
 
 const dbUri = config.mongodbUri;
 
-async function connect() {
+module.exports = (async () => {
     const db = await MongoDB.MongoClient.connect(dbUri, {
         poolSize: 5,
         checkServerIdentity: true,
@@ -14,8 +14,6 @@ async function connect() {
         noDelay: true,
         appname: pkg.name,
     });
-
-    connect.db = db;
 
     // Successfully connected
     db.on('fullsetup', () => {
@@ -41,7 +39,5 @@ async function connect() {
         });
     });
 
-    await require('../collections');
-};
-
-module.exports = connect;
+    return db;
+})();
