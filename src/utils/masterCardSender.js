@@ -87,7 +87,6 @@ module.exports = {
             });
         });
     },
-
     delete: (url) => {
         return new Promise((resolve, reject) => {
             request({

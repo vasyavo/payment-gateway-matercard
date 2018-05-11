@@ -1,7 +1,6 @@
 const collectionPromise = require('../../../../../collections/card');
 const {
     masterCardSender,
-    logger,
 } = require('../../../../../utils');
 const {
     merchantId,
@@ -10,12 +9,13 @@ const ObjectID = require('bson-objectid');
 
 const handler = async (req, res, next) => {
     const collection = await collectionPromise;
-    const customer = req.params.customer;
+    const customer = ObjectID(req.params.customer);
     const {
         holderName,
-        ...card
+        ...card,
     } = req.body;
     let result;
+    let response;
 
     try {
         result = await masterCardSender.post({
@@ -47,17 +47,27 @@ const handler = async (req, res, next) => {
             expiry,
             masterCardId: token,
             cardNumber: number,
-            customer: ObjectID(customer),
+            customer,
             holderName,
             default: false,
         });
     } catch (err) {
-        logger.log(err);
         return next(err);
     }
 
-    // eslint-disable-next-line global-require
-    res.status(200).send(require('../../../../../../raml/v1/customer/card/{id}/_post/responses/201/example.json'));
+    try {
+        response = await collection.findOne({
+            customer,
+        }, {
+            default: 1,
+            cardNumber: 1,
+            holderName: 1,
+            expiry: 1,
+        });
+    } catch (err) {
+        return next(err);
+    }
+    res.status(201).send(response);
 };
 
 module.exports = handler;
