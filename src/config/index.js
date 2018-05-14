@@ -13,7 +13,7 @@ const envPath = path.join(__dirname, `.env${env ? `.${env}` : ''}`).normalize();
 require('dotenv').config({
     path: envPath,
 });
-
+nconf.argv().env();
 const config = {
     env,
     workingDirectory,

@@ -44,7 +44,7 @@ const app = express();
 
 
     app.listen(config.port, () => {
-        logger.info(`Server started at port ${config.port} in ${config.env} environment: ${JSON.stringify(process.env)}`);
+        logger.info(`Server started at port ${config.port} in ${config.env} environment: ${JSON.stringify(config)}`);
     });
 })();
 
