@@ -1,4 +1,4 @@
-const collectionName = require('../constants/contentType').CLIENT;
+const collectionName = require('../constants/contentType').CLIENTS;
 const connection = require('../utils/connection');
 
 module.exports = (async () => {

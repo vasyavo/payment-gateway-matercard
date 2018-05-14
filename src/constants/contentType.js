@@ -1,4 +1,4 @@
 module.exports = {
     CARD: 'card',
-    CLIENT: 'client',
+    CLIENTS: 'clients',
 };
