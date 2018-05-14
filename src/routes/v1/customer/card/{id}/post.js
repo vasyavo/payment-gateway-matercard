@@ -12,7 +12,7 @@ const handler = async (req, res, next) => {
     const customer = ObjectID(req.params.customer);
     const {
         holderName,
-        ...card,
+        ...card
     } = req.body;
     let result;
     let response;
