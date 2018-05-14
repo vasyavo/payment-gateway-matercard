@@ -41,9 +41,10 @@ const handler = async (req, res, next) => {
             },
         },
     } = result;
+    let cardResult;
 
     try {
-        await collection.insertOne({
+        cardResult = await collection.insertOne({
             expiry,
             masterCardId: token,
             cardNumber: number,
@@ -57,7 +58,7 @@ const handler = async (req, res, next) => {
 
     try {
         response = await collection.findOne({
-            customer,
+            _id: cardResult.insertedId,
         }, {
             default: 1,
             cardNumber: 1,
