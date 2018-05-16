@@ -3,7 +3,6 @@ const ObjectID = require('bson-objectid');
 const {
     masterCardSender,
     errorGenerator,
-    logger,
 } = require('../../../../../utils');
 const {
     merchantId,
@@ -22,7 +21,6 @@ const handler = async (req, res, next) => {
 
         await masterCardSender.delete(`https://eu-gateway.mastercard.com/api/rest/version/47/merchant/${merchantId}/token/${card.masterCardId}`);
     } catch (err) {
-        logger.log(err);
         return next(err);
     }
 
@@ -31,7 +29,6 @@ const handler = async (req, res, next) => {
             _id,
         });
     } catch (err) {
-        logger.log(err);
         return next(err);
     }
     // eslint-disable-next-line global-require

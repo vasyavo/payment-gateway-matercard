@@ -2,7 +2,6 @@ const collectionPromise = require('../../../../../collections/card');
 const ObjectID = require('bson-objectid');
 const {
     errorGenerator,
-    logger,
 } = require('../../../../../utils');
 
 module.exports = async (req, res, next) => {
@@ -33,7 +32,6 @@ module.exports = async (req, res, next) => {
             },
         });
     } catch (err) {
-        logger.log(err);
         return next(err);
     }
     // eslint-disable-next-line global-require

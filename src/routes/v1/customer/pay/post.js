@@ -1,7 +1,7 @@
 const collectionPromise = require('../../../../collections/card');
+const transactionCollectionPromise = require('../../../../collections/transaction');
 const {
     masterCardSender,
-    logger,
 } = require('../../../../utils');
 const {
     merchantId,
@@ -10,12 +10,14 @@ const ObjectID = require('bson-objectid');
 
 const handler = async (req, res, next) => {
     const collection = await collectionPromise;
+    const transactionCollection = await transactionCollectionPromise;
     const {
         cardId,
         order,
     } = req.body;
     let card;
     let result;
+    let transactionResult;
 
     try {
         card = await collection.findOne({
@@ -26,7 +28,6 @@ const handler = async (req, res, next) => {
             throw new Error('Card not found');
         }
     } catch (err) {
-        logger.log(err);
         return next(err);
     }
 
@@ -41,16 +42,21 @@ const handler = async (req, res, next) => {
                 token: card.masterCardId,
             },
         }, `https://eu-gateway.mastercard.com/api/rest/version/47/merchant/${merchantId}/order/${ObjectID()}/transaction/${ObjectID()}`);
-
-        console.log(result);
     } catch (err) {
-        logger.log(err);
+        return next(err);
+    }
+
+    try {
+        transactionResult = await transactionCollection.insertOne({
+            masterCardId: result.order.id,
+        });
+    } catch (err) {
         return next(err);
     }
 
     res.status(200).send({
         status: 'Successfully payed',
-        orderId: result.order.id,
+        orderId: transactionResult.insertedId,
     });
 };
 
