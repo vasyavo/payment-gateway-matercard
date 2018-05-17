@@ -7,7 +7,6 @@ module.exports = (async () => {
         validator: {
             $or: [
                 {
-                    version: 1,
                     $and: [
                         {
                             clientId: {

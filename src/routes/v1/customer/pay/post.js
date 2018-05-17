@@ -31,6 +31,9 @@ const handler = async (req, res, next) => {
         return next(err);
     }
 
+
+    order.amount = `${order.amount}`;
+
     try {
         result = await masterCardSender.put({
             apiOperation: 'PAY',

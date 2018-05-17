@@ -9,7 +9,7 @@
     "transaction": {
       "properties": {
         "amount": {
-          "type": "string"
+          "type": "number"
         },
         "currency": {
           "type": "string"
