@@ -20,7 +20,7 @@ const handler = async (req, res, next) => {
         }).toArray();
 
         if (!card) {
-            return next(errorGenerator('Card was not found'));
+            return next(errorGenerator('Card was not found', 404));
         }
     } catch (err) {
         return next(err);
