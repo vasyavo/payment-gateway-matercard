@@ -17,7 +17,7 @@ const handler = async (req, res, next) => {
             cardNumber: 1,
             holderName: 1,
             expiry: 1,
-        }).toArray();
+        });
 
         if (!card) {
             return next(errorGenerator('Card was not found', 404));
