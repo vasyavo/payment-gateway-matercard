@@ -21,6 +21,12 @@ traits:
 
 /v1/customer:
   /card/{id}:
+    /single:
+      type:
+        collection:
+          exampleCollection: !include v1/customer/card/{id}/single/_get/responses/200/example.json
+          description: 'Get card by cardId'
+          exampleDelete: ''
     type:
       collection:
         exampleCollection: !include v1/customer/card/{id}/_get/responses/200/example.json
