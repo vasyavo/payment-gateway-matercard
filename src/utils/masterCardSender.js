@@ -4,6 +4,24 @@ const {
     apiPassword,
 } = require('../config');
 const errorGenerator = require('./errorGenerator');
+const responseHandler = (resolve, reject) => (err, httpResponse, body) => {
+    if (typeof body === 'string') {
+        body = JSON.parse(body);
+    }
+    const {
+        result,
+    } = body;
+
+    if (result === 'SUCCESS') {
+        return resolve(body);
+    } else if (result === 'FAILURE') {
+        return reject(errorGenerator('The operation was declined or rejected by the gateway, acquirer or issuer'));
+    } else if (result === 'PENDING') {
+        return reject(errorGenerator('The operation is currently in progress or pending processing'));
+    } else {
+        return reject(errorGenerator('The result of the operation is unknown'));
+    }
+};
 
 module.exports = {
     post: (apiParams, url) => {
@@ -18,20 +36,7 @@ module.exports = {
                     sendImmediately: false,
                 },
                 url,
-            }, (err, httpResponse, body) => {
-                if (typeof body === 'string') {
-                    body = JSON.parse(body);
-                }
-                const {
-                    result,
-                } = body;
-
-                if (result === 'ERROR') {
-                    return reject(errorGenerator(body.error.explanation));
-                }
-
-                resolve(body);
-            });
+            }, responseHandler(resolve, reject));
         });
     },
     put: (apiParams, url) => {
@@ -45,20 +50,7 @@ module.exports = {
                     pass: apiPassword,
                     sendImmediately: false,
                 },
-            }, (err, httpResponse, body) => {
-                if (typeof body === 'string') {
-                    body = JSON.parse(body);
-                }
-                const {
-                    result,
-                } = body;
-
-                if (result === 'ERROR') {
-                    return reject(errorGenerator(body.error.explanation));
-                }
-
-                resolve(body);
-            });
+            }, responseHandler(resolve, reject));
         });
     },
     get: (url) => {
@@ -71,20 +63,7 @@ module.exports = {
                     pass: apiPassword,
                     sendImmediately: false,
                 },
-            }, (err, httpResponse, body) => {
-                if (typeof body === 'string') {
-                    body = JSON.parse(body);
-                }
-                const {
-                    result,
-                } = body;
-
-                if (result === 'ERROR') {
-                    return reject(errorGenerator(body.error.explanation));
-                }
-
-                resolve(body);
-            });
+            }, responseHandler(resolve, reject));
         });
     },
     delete: (url) => {
@@ -97,20 +76,7 @@ module.exports = {
                     sendImmediately: false,
                 },
                 url,
-            }, (err, httpResponse, body) => {
-                if (typeof body === 'string') {
-                    body = JSON.parse(body);
-                }
-                const {
-                    result,
-                } = body;
-
-                if (result === 'ERROR') {
-                    return reject(errorGenerator(body.error.explanation));
-                }
-
-                resolve(body);
-            });
+            }, responseHandler(resolve, reject));
         });
     },
 };
