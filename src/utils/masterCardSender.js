@@ -13,13 +13,13 @@ const responseHandler = (resolve, reject) => (err, httpResponse, body) => {
     } = body;
 
     if (result === 'SUCCESS') {
-        return resolve(body);
+        resolve(body);
     } else if (result === 'FAILURE') {
-        return reject(errorGenerator('The operation was declined or rejected by the gateway, acquirer or issuer'));
+        reject(errorGenerator('The operation was declined or rejected by the gateway, acquirer or issuer'));
     } else if (result === 'PENDING') {
-        return reject(errorGenerator('The operation is currently in progress or pending processing'));
+        reject(errorGenerator('The operation is currently in progress or pending processing'));
     } else {
-        return reject(errorGenerator('The result of the operation is unknown'));
+        reject(errorGenerator('The result of the operation is unknown'));
     }
 };
 
