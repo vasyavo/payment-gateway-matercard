@@ -14,6 +14,7 @@ const handler = async (req, res, next) => {
     const {
         cardId,
         order,
+        customer,
     } = req.body;
     let card;
     let result;
@@ -38,6 +39,7 @@ const handler = async (req, res, next) => {
         result = await masterCardSender.put({
             apiOperation: 'PAY',
             order,
+            customer,
             risk: {
                 bypassMerchantRiskRules: 'ALL',
             },

@@ -3,5 +3,11 @@
   "order": {
     "amount": 10,
     "currency": "USD"
+  },
+  "customer": {
+    "email": "petro@gmail.com",
+    "firstName": "Pedro",
+    "lastName": "Petro",
+    "phone": "+380990089765"
   }
 }
