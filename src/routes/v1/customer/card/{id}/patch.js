@@ -31,9 +31,10 @@ module.exports = async (req, res, next) => {
                 default: false,
             },
         });
+
+        // eslint-disable-next-line global-require
+        res.status(200).send({ cardNumber: card.cardNumber });
     } catch (err) {
         return next(err);
     }
-    // eslint-disable-next-line global-require
-    res.status(200).send(require('../../../../../../raml/v1/customer/card/{id}/_patch/responses/200/example.json'));
 };

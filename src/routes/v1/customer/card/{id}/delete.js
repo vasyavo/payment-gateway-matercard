@@ -11,8 +11,9 @@ const {
 const handler = async (req, res, next) => {
     const collection = await collectionPromise;
     const _id = ObjectID(req.params._id);
+    let card;
     try {
-        const card = await collection.findOne({
+        card = await collection.findOne({
             _id,
         });
         if (!card) {
@@ -32,7 +33,7 @@ const handler = async (req, res, next) => {
         return next(err);
     }
     // eslint-disable-next-line global-require
-    res.status(200).send(require('../../../../../../raml/v1/customer/card/{id}/_delete/responses/200/example.json'));
+    res.status(200).send({ cardNumber: card.cardNumber });
 };
 
 module.exports = handler;
