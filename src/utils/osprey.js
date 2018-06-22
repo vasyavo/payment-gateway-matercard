@@ -11,17 +11,20 @@ const ospreyConfig = {
     disableErrorInterception: true,
 };
 
-
-const ramlApi = ramlParser.loadRAMLSync(config.raml, { rejectOnErrors: true });
+try {
+    const ramlApi = ramlParser.loadRAMLSync(config.raml, {rejectOnErrors: true});
+} catch (err) {
+    console.log();
+}
 const raml = ramlApi.expand(true).toJSON({
     serializeMetadata: false,
 });
 const middleware = [];
 const handler = osprey.server(
-        Object.assign({}, raml, {
-            RAMLVersion: ramlApi.RAMLVersion(),
-        }, ospreyConfig.server)
-    );
+    Object.assign({}, raml, {
+        RAMLVersion: ramlApi.RAMLVersion(),
+    }, ospreyConfig.server)
+);
 const error = osprey.errorHandler(ospreyConfig.errorHandler);
 
 if (ospreyConfig.security) {
